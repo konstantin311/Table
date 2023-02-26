@@ -1,0 +1,128 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Table.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Table.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Table">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Window.DataContext>
+		<vm:MainWindowViewModel/>
+	</Window.DataContext>
+
+	<Window.Styles>
+		<Style Selector="TextBlock.h1">
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="TextBlock.h2">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="TextBlock.h3">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+		</Style>
+	</Window.Styles>
+
+	<Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+
+		<Grid Grid.Row="0" RowDefinitions="Auto" ColumnDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*">
+			<TextBlock Classes="h1" Text="ФИО" Grid.Column="0"/>
+			<TextBlock Classes="h1" Text="Математика" Grid.Column="1"/>
+			<TextBlock Classes="h1" Text="Русский язык" Grid.Column="2"/>
+			<TextBlock Classes="h1" Text="Программирование" Grid.Column="3"/>
+			<TextBlock Classes="h1" Text="Физкульутра" Grid.Column="4"/>
+			<TextBlock Classes="h1" Text="История" Grid.Column="5"/>
+			<TextBlock Classes="h1" Text="Средний балл" Grid.Column="6"/>
+		</Grid>
+
+		<ListBox Grid.Row="1" Items="{Binding Students}" SelectedIndex="{Binding Index}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid RowDefinitions="Auto" ColumnDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*">
+						<TextBlock Name="NameText" Classes="h1" Text="{Binding Name}" Grid.Column="0"/>
+						<TextBlock Classes="h2" Text="{Binding Math}" Grid.Column="1"/>
+						<TextBlock Classes="h2" Text="{Binding Russian}" Grid.Column="2"/>
+						<TextBlock Classes="h2" Text="{Binding Programming}" Grid.Column="3"/>
+						<TextBlock Classes="h2" Text="{Binding Physical_culture}" Grid.Column="4"/>
+						<TextBlock Classes="h2" Text="{Binding History}" Grid.Column="5"/>
+						<TextBlock Classes="h2" Text="{Binding Average_point}" Grid.Column="6"/>
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		<Grid Grid.Row="2" RowDefinitions="Auto" ColumnDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*">
+			<TextBlock Classes="h3" Text="Средний балл" Grid.Column="0"/>
+			<TextBlock Classes="h3" Text="{Binding ScMath}" Grid.Column="1"/>
+			<TextBlock Classes="h3" Text="{Binding ScRussian}" Grid.Column="2"/>
+			<TextBlock Classes="h3" Text="{Binding ScProgramming}" Grid.Column="3"/>
+			<TextBlock Classes="h3" Text="{Binding ScPhysicalCulture}" Grid.Column="4"/>
+			<TextBlock Classes="h3" Text="{Binding ScHistory}" Grid.Column="5"/>
+			<TextBlock Classes="h3" Text="{Binding ScAveragePoint}" Grid.Column="6"/>
+		</Grid>
+		<Grid Grid.Row="3" RowDefinitions="Auto" ColumnDefinitions="2*, 1*, 1*, 1*, 1*, 1*, 1*">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<TextBox x:Name="NewStudentTextBox" Watermark="ФИО" TextWrapping="Wrap" Text="{Binding NewStudentName, Mode=TwoWay}" Grid.Column="0" Classes="h2"/>
+			<ComboBox Items="{Binding GradeChoices}" SelectedIndex="{Binding SelectedMath}" Grid.Row="0"
+                      Grid.Column="1" Classes="h2"/>
+			<ComboBox Items="{Binding GradeChoices}" SelectedIndex="{Binding SelectedRussian}" Grid.Row="0"
+                      Grid.Column="2" Classes="h2"/>
+			<ComboBox Items="{Binding GradeChoices}" SelectedIndex="{Binding SelectedProgramming}" Grid.Row="0"
+                      Grid.Column="3" Classes="h2"/>
+			<ComboBox Items="{Binding GradeChoices}" SelectedIndex="{Binding SelectedPhysicalculture}" Grid.Row="0"
+                      Grid.Column="4" Classes="h2"/>
+			<ComboBox Items="{Binding GradeChoices}" SelectedIndex="{Binding SelectedHistory}" Grid.Row="0"
+                      Grid.Column="5" Classes="h2"/>
+		</Grid>
+		<Grid Grid.Row="4">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Classes="h2" Text="    добавить/удалить студента    " Grid.Column="0"/>
+			<Button Content="добавить" Command="{Binding AddStudentCommand}" Classes="h2" Grid.Row="0" Grid.Column="1"/>
+			<Button Content="удалить" Command="{Binding DeleteStudentCommand}" Classes="h2" Grid.Row="0" Grid.Column="2"/>
+		</Grid>
+
+		<Grid Grid.Row="5">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBlock Classes="h2" Text="    cохранить/загрузить таблицу " Grid.Column="0"/>
+			<Button Content="cохранить" Command="{Binding SaveCommand}" Classes="h2" Grid.Row="0" Grid.Column="1"/>
+			<Button Content="загрузить" Command="{Binding UploadCommand}" Classes="h2" Grid.Row="0" Grid.Column="2"/>
+		</Grid>
+
+
+	</Grid>
+
+</Window>
